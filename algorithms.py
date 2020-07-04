@@ -12,6 +12,7 @@ from sklearn import preprocessing
 import seaborn as sns
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
 from sklearn import metrics
 #%matplotlib inline #needed in Jupyter labs
 
@@ -131,6 +132,11 @@ X[0:5]
 print(X)
 
 
+#========================================TRAIN/TEST SPLIT=====================================
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=4)
+print ('Train set:', X_train.shape,  y_train.shape)
+print ('Test set:', X_test.shape,  y_test.shape)
+
 # Classification
 #
 # 1. K Nearest Neighbor(KNN)
@@ -141,13 +147,7 @@ print(X)
 #======================================CLASSIFICATION========================================
 
 
-
 #=================================K NEAREST NEIGHBOR (KNN)==================================
-
-#========================================Train/Test Split=====================================
-X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=4)
-print ('Train set:', X_train.shape,  y_train.shape)
-print ('Test set:', X_test.shape,  y_test.shape)
 
 #=========================LOOPING THROUGH MULTIPLE K's AND FINDING THE MOST ACCURATE ONE==================
 #specifying the first value of the k's as 10
@@ -189,7 +189,49 @@ neigh = KNeighborsClassifier(n_neighbors = 7).fit(X_train,y_train)
 neigh
 print(neigh)
 
+#===============================Predicting with the trained algorithm=============================
+yhat = neigh.predict(X_test)
+yhat[0:5]
+#print(yhat)
 
-#=======================================DECISION TREE===========================================
+
+#======================================ACCURACY EVALUATION====================================
+
+#=====using accuracy classification score(equals the jaccard_similarity_score) it computes subset accuracy=====
+print("Train set Accuracy: ", metrics.accuracy_score(y_train, neigh.predict(X_train)))
+print("Test set Accuracy: ", metrics.accuracy_score(y_test, yhat))
+
+#-------------DO NOT FORGET: Higher the Jaccard score higher the accuracy of the classifier-------------
+
+
+
+
+#==========================================DECISION TREE===========================================
+
+#=================create an instance of the DecisionTreeClassifier called loanTree===================
+loanTree = DecisionTreeClassifier(criterion="entropy", max_depth = 4)
+
+#============================================training=======================================
+loanTree.fit(X_train,y_train)
+loanTree
+
+#===================================Predicting with the trained algorithm========================
+tree = loanTree.predict(X_test)
+tree[0:5]
+
+
+
+
+#========================================SUPPORT VECTOR MACHINES=======================================
+
+
+
+
+
+
+
+#==========================================LOGISTIC REGRESSION=========================================
+
+
 
 
