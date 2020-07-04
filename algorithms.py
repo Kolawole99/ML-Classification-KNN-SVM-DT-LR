@@ -215,10 +215,6 @@ loanTree = DecisionTreeClassifier(criterion="entropy", max_depth = 4)
 loanTree.fit(X_train,y_train)
 loanTree
 
-#===================================Predicting with the trained algorithm========================
-tree = loanTree.predict(X_test)
-tree[0:5]
-
 
 
 
